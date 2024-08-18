@@ -1,15 +1,25 @@
 from rest_framework import serializers
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import User, Group
+from .models import Networks
+
+
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = [username, tag, created]
+        fields = ['url', 'username', 'email', 'groups']
 
-class ConnectionSerializer(serializers.HyperlinkedModelSerializer):
+
+class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Coonnection
-        fields = [con_id, user1, user2, created]
+        model = Group
+        fields = ['url', 'name']
+    
+        
+class NetworksSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Networks
+        fields = ['con_id', 'user1', 'user2', 'created']
 
 
     

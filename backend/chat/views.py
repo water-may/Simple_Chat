@@ -1,9 +1,15 @@
-from django.shortcuts import render
+from django.contrib.auth.models import Group, User
+from rest_framework import permissions, viewsets
+
+from .serializers import UserSerializer
 
 
-def index(request):
-    return render(request, "chat/index.html")
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
-def room(request, room_name):
-    return render(request, "chat/room.html", {"room_name": room_name})
